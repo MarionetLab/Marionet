@@ -1,0 +1,31 @@
+# =============================
+# Godot + .NET 桌宠项目 gitignore
+# =============================
+build/
+bin/
+obj/
+out/
+dist/
+temp/
+.cache/
+# 环境变量 / 本地配置
+.env
+.env.*
+*.local.json
+*.secret.json
+# 不上传模型大文件
+*.blend1
+*.psd
+*.xcf
+*.zip
+*.7z
+# VS / Rider / .NET 中间文件
+.vs/
+.idea/
+*.user
+*.suo
+*.userprefs
+*.csproj.user
+/.cursor/
+/.github/
+/.prototype/
