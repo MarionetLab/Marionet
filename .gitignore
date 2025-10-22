@@ -19,6 +19,11 @@ temp/
 *.xcf
 *.zip
 *.7z
+
+# 排除第三方插件二进制文件（有许可证限制）
+renderer/addons/gd_cubism/bin/*.dll
+renderer/addons/gd_cubism/bin/*.lib
+renderer/addons/gd_cubism/bin/*.exp
 # VS / Rider / .NET 中间文件
 .vs/
 .idea/

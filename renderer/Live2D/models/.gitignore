@@ -1,0 +1,28 @@
+# 忽略所有文件，只跟踪通过LFS管理的文件
+*
+
+# 但保留这些重要文件
+!.gitignore
+!.gitattributes
+!**/*.moc3
+!**/*.model3.json
+!**/*.motion3.json
+!**/*.exp3.json
+!**/*.physics3.json
+!**/*.pose3.json
+!**/*.cdi3.json
+!**/*.can3
+!**/*.cmo3
+!**/*.png
+!**/*.jpg
+!**/*.jpeg
+!**/*.dll
+!**/*.lib
+!**/*.exp
+
+# 忽略临时文件和系统文件
+*.tmp
+*.temp
+~*
+.DS_Store
+Thumbs.db
