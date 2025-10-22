@@ -1,0 +1,88 @@
+{
+    "created_time": "2025-10-19T07:59:50Z",
+    "files": [
+        {
+            "attachment_folder": "",
+            "created_time": "2025-10-19T07:59:50Z",
+            "id": "14",
+            "modified_time": "2025-10-19T07:59:50Z",
+            "name": "architecture.md",
+            "signature": "7077232659544709750",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "created_time": "2025-10-19T07:59:50Z",
+            "id": "23",
+            "modified_time": "2025-10-19T07:59:50Z",
+            "name": "core-Furnace.md",
+            "signature": "2440062676004805238",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "created_time": "2025-10-19T07:59:50Z",
+            "id": "26",
+            "modified_time": "2025-10-19T07:59:50Z",
+            "name": "data-design.md",
+            "signature": "4544562506054802038",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "created_time": "2025-10-19T07:59:50Z",
+            "id": "38",
+            "modified_time": "2025-10-19T07:59:50Z",
+            "name": "features.md",
+            "signature": "6211475722070170230",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "created_time": "2025-10-19T07:59:50Z",
+            "id": "47",
+            "modified_time": "2025-10-19T07:59:50Z",
+            "name": "roadmap.md",
+            "signature": "304618693213854326",
+            "tags": [
+            ]
+        }
+    ],
+    "folders": [
+        {
+            "name": "api"
+        },
+        {
+            "name": "architecture"
+        },
+        {
+            "name": "changelog"
+        },
+        {
+            "name": "core"
+        },
+        {
+            "name": "development"
+        },
+        {
+            "name": "features"
+        },
+        {
+            "name": "project"
+        },
+        {
+            "name": "research"
+        },
+        {
+            "name": "services"
+        }
+    ],
+    "id": "66",
+    "modified_time": "2025-10-19T07:59:50Z",
+    "signature": "17655683534170659446",
+    "version": 3
+}

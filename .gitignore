@@ -1,36 +1,198 @@
 # =============================
-# Godot + .NET 桌宠项目 gitignore
+# Marionet 项目 .gitignore
 # =============================
-build/
+
+# ========== Live2D 模型（大文件，不上传）==========
+# 整个 models 目录忽略
+engine/Live2D/models/
+renderer/Live2D/models/
+
+# 如果需要保留目录结构，在 models 目录下创建 .gitkeep
+# 但所有模型文件都不上传
+**/*.moc3
+**/*.can3
+**/*.cmo3
+**/*.model3.json
+**/*.motion3.json
+**/*.physics3.json
+**/*.pose3.json
+**/*.cdi3.json
+**/*.exp3.json
+
+# ========== Godot 引擎文件 ==========
+# Godot 4 导入缓存和临时文件
+.godot/
+.import/
+*.import
+
+# Godot 导出文件
+export_presets.cfg
+*.tmp
+
+# ========== .NET / C# ==========
+# 构建输出
 bin/
 obj/
+build/
 out/
 dist/
-temp/
-.cache/
-# 环境变量 / 本地配置
-.env
-.env.*
-*.local.json
-*.secret.json
-# 不上传模型大文件
-*.blend1
-*.psd
-*.xcf
-*.zip
-*.7z
 
-# 排除第三方插件二进制文件（有许可证限制）
-renderer/addons/gd_cubism/bin/*.dll
-renderer/addons/gd_cubism/bin/*.lib
-renderer/addons/gd_cubism/bin/*.exp
-# VS / Rider / .NET 中间文件
+# Visual Studio / Rider
 .vs/
+.vscode/
 .idea/
 *.user
 *.suo
 *.userprefs
 *.csproj.user
-/.cursor/
-/.github/
-/.prototype/
+*.sln.DotSettings.user
+
+# .NET 中间文件
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ========== 第三方插件（许可证限制）==========
+# gd_cubism 插件二进制文件不上传
+engine/addons/gd_cubism/bin/*.dll
+engine/addons/gd_cubism/bin/*.lib
+engine/addons/gd_cubism/bin/*.exp
+engine/addons/gd_cubism/bin/*.pdb
+engine/addons/gd_cubism/bin/*.TMP
+
+renderer/addons/gd_cubism/bin/*.dll
+renderer/addons/gd_cubism/bin/*.lib
+renderer/addons/gd_cubism/bin/*.exp
+renderer/addons/gd_cubism/bin/*.pdb
+renderer/addons/gd_cubism/bin/*.TMP
+
+# ========== 环境配置 / 本地文件 ==========
+.env
+.env.*
+*.local.json
+*.secret.json
+settings.json
+
+# 保留示例配置
+!settings_example.json
+!*.example.json
+
+# ========== 大文件 / 资源文件 ==========
+# 设计源文件
+*.blend1
+*.blend2
+*.psd
+*.xcf
+*.ai
+*.sketch
+
+# 压缩包
+*.zip
+*.7z
+*.rar
+*.tar.gz
+
+# 视频文件
+*.mp4
+*.avi
+*.mov
+*.wmv
+
+# 音频文件（如果很大）
+*.wav
+# 保留小的音效文件
+# *.ogg
+# *.mp3
+
+# ========== 系统文件 ==========
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+.directory
+
+# ========== 开发工具 ==========
+# Cursor AI
+.cursor/
+.cursorrules
+
+# Git LFS
+# (如果使用 LFS，取消下面的注释)
+# .gitattributes 文件保留
+
+# ========== 临时文件 / 日志 ==========
+*.log
+*.cache
+*.tmp
+temp/
+tmp/
+logs/
+.cache/
+
+# ========== 测试 / 调试 ==========
+# 测试覆盖率
+coverage/
+*.coverage
+
+# 调试文件
+*.stackdump
+core
+
+# ========== 其他 ==========
+# 备份文件
+*.bak
+*.backup
+*.old
+*~
+
+# 编辑器临时文件
+*.swp
+*.swo
+*~
+
+# Node.js（如果有前端工具）
+node_modules/
+package-lock.json
+yarn.lock
+
+# Python（如果有 Python 工具）
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+.venv/
+
+# ========== 项目特定忽略 ==========
+# 原型/废弃代码
+.prototype/
+legacy/backup/
+legacy/old/
+
+# 个人笔记（不上传）
+PERSONAL_NOTES.md
+TODO_PRIVATE.md
+
+# ========== 保留重要文件 ==========
+# 确保这些文件会被追踪
+!.gitignore
+!.gitattributes
+!README.md
+!LICENSE.md
+!LFS_SETUP.md
+
+# 保留插件说明
+!engine/addons/gd_cubism/bin/README.md
+!renderer/addons/gd_cubism/bin/README.md
