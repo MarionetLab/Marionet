@@ -25,7 +25,6 @@ config/icon="res://icon/icon.svg"
 ServiceLocator="*res://core/ServiceLocator.gd"
 EngineConstants="*res://core/Constants.gd"
 WindowService="*res://renderer/services/Window/WindowService.cs"
-MouseDetectionService="*res://renderer/services/Window/MouseDetection.cs"
 
 [display]
 

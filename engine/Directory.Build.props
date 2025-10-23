@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup>
+    <!-- 全局启用 unsafe 代码支持，包括所有子目录和插件 -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>12</LangVersion>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+</Project>
+

@@ -5,6 +5,13 @@
     <RootNamespace>MarionetEngine</RootNamespace>
     <AssemblyName>MarionetEngine</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>12</LangVersion>
+    <Nullable>disable</Nullable>
     <ProjectGuid>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</ProjectGuid>
   </PropertyGroup>
+
+  <!-- 排除 legacy 目录中的文件，避免与新架构冲突 -->
+  <ItemGroup>
+    <Compile Remove="legacy/**/*.cs" />
+  </ItemGroup>
 </Project>

@@ -1,0 +1,48 @@
+# <type>(<scope>): <subject>
+# |<----  使用最多 50 个字符  ---->|
+
+# 详细解释此次提交的改动（可选）
+# |<----   每行尽量不超过 72 个字符   ---->|
+
+
+# 相关 Issue 或其他链接（可选）
+# Closes #123
+# See also #456, #789
+
+# --- 提交规范 ---
+# Type（类型）:
+#   feat     - 新功能
+#   fix      - Bug 修复
+#   refactor - 重构（既不是新功能也不是 Bug 修复）
+#   docs     - 文档变更
+#   style    - 代码格式（不影响代码运行）
+#   test     - 添加或修改测试
+#   chore    - 构建过程或辅助工具的变更
+#   perf     - 性能优化
+#
+# Scope（范围）示例:
+#   model, animation, config, render, emotion, memory, etc.
+#
+# Subject（主题）:
+#   - 使用祈使句（"添加"而不是"添加了"）
+#   - 不要大写首字母
+#   - 不要以句号结尾
+#
+# Body（正文，可选）:
+#   - 解释"为什么"而不是"做了什么"
+#   - 与之前行为的对比
+#
+# Footer（页脚，可选）:
+#   - 关联的 Issue
+#   - Breaking Changes
+#
+# 示例:
+#   feat(emotion): 添加心情系统基础框架
+#
+#   实现了基础的心情状态管理：
+#   - 添加 MoodType 枚举
+#   - 实现 MoodModel 类
+#   - 添加心情值衰减机制
+#
+#   Closes #123
+

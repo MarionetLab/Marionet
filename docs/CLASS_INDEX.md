@@ -149,6 +149,54 @@ var animation_service = ServiceLocator.get_service("AnimationService")
 
 ---
 
+## GDCubism 插件类
+
+### 核心类
+
+GDCubism 是第三方 GDExtension 插件，提供 Live2D Cubism SDK 集成。
+
+| 类名 | 类型 | 说明 | 重要度 |
+|------|------|------|--------|
+| `GDCubismUserModel` | Node2D | Live2D 模型主控制类 | ⭐⭐⭐⭐⭐ |
+| `GDCubismEffectTargetPoint` | Node | 眼动追踪效果节点 | ⭐⭐⭐⭐ |
+| `GDCubismEffectHitArea` | Node | 交互区域检测节点 | ⭐⭐⭐⭐ |
+| `GDCubismParameter` | GodotObject | 模型参数控制 | ⭐⭐⭐⭐⭐ |
+| `GDCubismPartOpacity` | GodotObject | 部件透明度控制 | ⭐⭐⭐ |
+
+### 使用示例
+
+```gdscript
+# 获取模型
+var model: GDCubismUserModel = $GDCubismUserModel
+
+# 播放动画
+model.start_motion("Idle", 0, GDCubismUserModel.PriorityEnum.PriorityNormal)
+
+# 播放表情
+model.start_expression("happy")
+
+# 直接控制参数
+var params = model.get_parameters()
+for param in params:
+	if param.get_id() == "ParamBodyAngleY":
+		param.set_value(10.0)
+
+# 眼动追踪
+var eye_tracking: GDCubismEffectTargetPoint = $EyeTracking
+eye_tracking.set_target(Vector2(0.5, 0.5))  # 归一化坐标
+```
+
+### 已知限制
+
+⚠️ **GDCubismEffectTargetPoint 限制**:
+- ✅ 支持: HeadAngleX/Y/Z, BodyAngleX, EyesAngleX/Y
+- ❌ 不支持: BodyAngleY, BodyAngleZ
+- **解决方案**: 通过 `get_parameters()` 手动控制缺失的参数
+
+详见: [GDCubism 插件分析报告](./GDCUBISM_PLUGIN_ANALYSIS.md)
+
+---
+
 ## 命名规范
 
 ### GDScript

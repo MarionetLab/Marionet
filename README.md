@@ -199,9 +199,17 @@ cd Marionet
 
 ## 文档导航
 
-### 新手入门
+### 🚀 快速开始
+- [贡献指南](docs/CONTRIBUTING.md) - 如何参与项目开发
+- [快速参考](docs/QUICK_REFERENCE.md) - 编码规范速查表
+- [编码规范](docs/CODING_STANDARDS.md) - 完整的代码风格指南
+
+### 📐 设计文档
 - [项目愿景](/docs/docs/vision/vision.md) - 了解项目的理念和目标
 - [功能设计](/docs/docs/features/README.md) - 完整的功能愿景设计文档
+- [架构设计](/docs/docs/architecture/architecture.md) - 系统架构
+
+### 💻 开发文档
 - [开发指南](/docs/docs/development.md) - 搭建开发环境
 - [代码规范](/docs/docs/coding-style.md) - 代码风格约定
 
@@ -295,14 +303,58 @@ Live2D 驱动的丰富表情与动作，情绪渐变、微表情、口型同步�
 ---
 ## 贡献指南
 
-欢迎贡献！项目目前处于早期阶段，核心架构还在快速迭代。
+欢迎为 Marionet 贡献代码、文档或反馈！项目目前处于早期阶段，核心架构还在快速迭代。
+
+### 📖 开始之前
+
+请先阅读：
+- [贡献指南](docs/CONTRIBUTING.md) - 完整的贡献流程和规范
+- [编码规范](docs/CODING_STANDARDS.md) - 代码风格指南
+- [快速参考](docs/QUICK_REFERENCE.md) - 编码规范速查表
+- [环境配置](docs/SETUP_GUIDE.md) - 开发环境配置指南
+
+### 🚀 快速开始
+
+```bash
+# 1. Fork 并克隆项目
+git clone https://github.com/YOUR_USERNAME/Marionet.git
+cd Marionet
+
+# 2. 配置 Git 提交模板
+git config --local commit.template .gitmessage
+
+# 3. 创建功能分支
+git checkout -b feat/your-feature-name
+
+# 4. 开发、测试、提交
+# ... 进行开发 ...
+git commit  # 使用提交模板
+
+# 5. 推送并创建 PR
+git push origin feat/your-feature-name
+```
+
+### 📋 提交规范
+
+使用 [Conventional Commits](https://www.conventionalcommits.org/) 格式：
+
+```
+<type>(<scope>): <subject>
+
+示例：
+feat(emotion): 添加心情系统
+fix(animation): 修复播放卡顿
+docs(readme): 更新安装说明
+```
 
 ### 如何贡献
+
 1. Fork 项目
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 提交 Pull Request
+2. 创建特性分支 (`git checkout -b feat/amazing-feature`)
+3. 遵循 [编码规范](docs/CODING_STANDARDS.md)
+4. 提交更改（使用规范的提交消息）
+5. 推送到分支 (`git push origin feat/amazing-feature`)
+6. 提交 Pull Request（使用 [PR 模板](.github/pull_request_template.md)）
 
 ### 贡献方向
 - Bug 修复

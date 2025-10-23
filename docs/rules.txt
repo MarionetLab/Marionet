@@ -1,0 +1,454 @@
+# MARIONET PROJECT - AI DEVELOPMENT RULES
+# Version: 1.0 | Updated: 2025-10-23
+# Compact version optimized for AI context
+
+## CRITICAL PRINCIPLES (NEVER VIOLATE)
+
+### 1. DOCUMENTATION-FIRST DEVELOPMENT ⭐⭐⭐
+**GOLDEN RULE**: Documentation MUST be updated SIMULTANEOUSLY with code changes. NOT after. NOT later. SIMULTANEOUSLY.
+
+**Priority Order**:
+1. P1 (HIGHEST): Architecture docs (`docs/docs/architecture/*.md`) - When changing system design
+2. P2: API docs - When changing function signatures
+3. P3: User docs (`README.md`, feature docs) - When changing user-facing behavior
+4. P4: Developer docs (`CONTRIBUTING.md`, `SETUP_GUIDE.md`) - When changing workflow
+
+**Update Checklist** (Run after EVERY change):
+```
+□ Changed module structure/interactions? → Update architecture.md
+□ Added/modified public API? → Update function docs
+□ Changed user-facing behavior? → Update README.md
+□ Added dependencies? → Update SETUP_GUIDE.md
+□ Refactored directory? → Update all path references
+```
+
+### 2. INCREMENTAL DEVELOPMENT
+- Make small, focused, atomic changes
+- Test thoroughly before next feature
+- Refactor separately from feature additions
+- No speculative "while we're here" edits
+
+### 3. MANDATORY WORKFLOW (5 STEPS)
+**NEVER skip these steps**:
+
+1. **CLARIFY SCOPE**: Plan approach, confirm objective, list what will be touched
+2. **LOCATE EXACT POINT**: Identify precise files/lines, justify each file
+3. **MINIMAL CHANGES**: Write ONLY required code, no extras
+4. **DOUBLE CHECK**: Review correctness, verify no regressions
+5. **DELIVER CLEARLY**: Summarize changes, list modified files, flag risks
+
+### 4. BACKWARD COMPATIBILITY
+- Breaking changes require explicit approval + migration guide
+- Mark deprecated features clearly for 2+ versions
+
+### 5. SECURITY & PRIVACY
+- Never log sensitive user data
+- Encrypt stored memories
+- Validate all external inputs
+
+---
+
+## PROJECT OVERVIEW
+
+**Tech Stack**: Godot 4.3+ (GDScript + C#), Live2D, .NET 8.0
+**Architecture**: Hybrid (Godot Core + External Services)
+**Current Phase**: Phase 1 Refactoring (`renderer/` → `engine/`)
+**Branches**: `main` (stable), `dev` (active), `feat/`, `fix/`
+
+**Core Modules**:
+```
+Godot Core
+├── Context (Memory + Decision)
+├── Action Sequence
+├── Renderer (Live2D)
+├── Numerical Models
+└── Perception Collectors
+     ↕
+External Services (LLM, TTS, Database)
+```
+
+**Directory Structure**:
+```
+renderer/  (→ engine/)
+├── core/              # Main.gd, ServiceLocator.gd, Constants.gd
+├── renderer/services/ # Live2D/, Config/, Window/
+├── scenes/            # L2D.tscn, ControlPanel.tscn
+└── Live2D/models/     # Live2D assets
+docs/
+├── CODING_STANDARDS.md, CONTRIBUTING.md
+└── docs/architecture/, docs/features/
+```
+
+---
+
+## CODING STANDARDS (MANDATORY)
+
+### GDScript Naming
+```gdscript
+# Files: PascalCase.gd
+# Classes: class_name PascalCase
+# Constants: SCREAMING_SNAKE_CASE
+const MAX_HEALTH: int = 100
+
+# Variables: snake_case
+var player_health: int = 100
+var _private_var: int = 0  # Private: _snake_case
+
+# Functions: snake_case
+func calculate_damage(amount: int) -> int:
+func _private_method() -> void:
+
+# Signals: snake_case (past tense)
+signal health_changed(new_health: int)
+
+# Enums: SCREAMING_SNAKE_CASE values
+enum State { IDLE, MOVING, ATTACKING }
+```
+
+### C# Naming
+```csharp
+// Files: PascalCase.cs
+// Classes: public class WindowService
+// Interfaces: public interface IService
+// Constants: private const int MaxRetries = 3;
+// Fields: private int _fieldName;
+// Properties: public int PropertyName { get; set; }
+// Methods: public void MethodName() (both public/private)
+// Enums: enum PlayerState { Idle, Moving }
+```
+
+### Type Annotations (MANDATORY)
+```gdscript
+# ALL parameters and returns MUST have types
+func method(param: int, other: float) -> Vector2:
+	var result: int = 0  # Local vars when not obvious
+	return Vector2.ZERO
+```
+
+### Script Structure Order (MANDATORY)
+```gdscript
+# 1. @tool (if needed)
+# 2. class_name + extends
+# 3. Signals
+# 4. Enums
+# 5. Constants
+# 6. @export variables
+# 7. Public variables
+# 8. Private variables (_prefix)
+# 9. @onready variables
+# 10. Built-in callbacks (_ready, _process, etc.)
+# 11. Public methods
+# 12. Private methods (_prefix)
+```
+
+### Service Locator Pattern (MANDATORY)
+```gdscript
+# DO THIS
+var service = ServiceLocator.get_service("ModelService")
+
+# NEVER
+var service = get_node("/root/Main/ModelService")
+```
+
+### Code Quality
+- Line length: Max 100 chars (code), 80 (comments)
+- Indentation: Tab (GDScript), 4 spaces (C#)
+- Encoding: UTF-8, LF line endings
+- No trailing whitespace, file ends with newline
+
+---
+
+## GIT COMMIT STANDARDS
+
+**Format** (Conventional Commits):
+```
+<type>(<scope>): <subject>
+
+[optional body]
+[optional footer]
+```
+
+**Types**: `feat`, `fix`, `refactor`, `docs`, `style`, `test`, `chore`, `perf`
+
+**Examples**:
+```
+feat(emotion): add basic mood system
+fix(animation): resolve playback stuttering
+refactor(model): extract loading logic to service
+docs(api): update ConfigService documentation
+```
+
+**Branch Naming**: `feat/<name>`, `fix/<name>`, `refactor/<name>`, `docs/<name>`
+
+---
+
+## DOCUMENTATION STYLE
+
+### Architecture Docs
+```markdown
+## Module Name
+**Purpose**: Clear statement of what and why
+**Responsibilities**: Bullet list of specific duties
+**Dependencies**: List with justification
+**Interfaces**: Public API with examples
+**Data Flow**: Diagram or description
+```
+
+### Code Comments
+```gdscript
+## Brief one-line description
+##
+## Detailed explanation (the "why", not "what")
+##
+## Parameters:
+##   param_name: Description
+##
+## Returns:
+##   Description of return value
+##
+## Example:
+##   var result = method_name(10)
+func method_name(param_name: int) -> int:
+```
+
+---
+
+## COMMON PATTERNS
+
+### Service Pattern
+```gdscript
+extends Node
+class_name ServiceName
+
+signal service_ready()
+var _is_initialized: bool = false
+
+func _ready():
+	await get_tree().process_frame
+	_initialize()
+
+func _initialize() -> void:
+	_is_initialized = true
+	service_ready.emit()
+
+func public_method(param: Type) -> ReturnType:
+	if not _is_initialized:
+		push_error("Service not initialized")
+		return
+	# Implementation
+```
+
+### Signal Connection
+```gdscript
+func _ready():
+	var service = ServiceLocator.get_service("ServiceName")
+	if service:
+		service.event_occurred.connect(_on_event)
+
+func _on_event(data: Type) -> void:
+	# React to event
+```
+
+### Configuration
+```gdscript
+var config_service = ServiceLocator.get_service("ConfigService")
+await config_service.load_config()
+var config = config_service.get_current_config()
+var value = config.get("key", default_value)
+```
+
+### Error Handling
+```gdscript
+func operation(param: String) -> bool:
+	if param.is_empty():
+		push_error("Parameter cannot be empty")
+		return false
+
+	if not _is_ready:
+		push_error("Service not ready")
+		return false
+
+	# Perform operation
+	return true
+```
+
+---
+
+## FILE OPERATIONS
+
+### Creating Files
+**Naming**: `PascalCase.gd`, `PascalCase.cs`, `snake_case.tscn`
+**Location**: `renderer/[layer]/services/[category]/ServiceName.gd`
+**Header** (MANDATORY):
+```gdscript
+# ServiceName.gd
+# Brief description
+# Responsibilities: [list]
+# Dependencies: [list]
+```
+
+### Service Registration
+```gdscript
+# In Main.gd::_init_services()
+var service = ServiceName.new()
+add_child(service)
+service.name = "ServiceName"
+ServiceLocator.register("ServiceName", service)
+```
+
+---
+
+## TESTING & QUALITY
+
+### Manual Testing (Current Phase)
+```
+Before commit:
+□ Open Godot, run main scene (F5)
+□ Test changed functionality
+□ Verify no console errors
+□ Check no visual regressions
+□ Remove debug print() statements
+```
+
+### Performance Rules
+```gdscript
+# Cache node references
+@onready var sprite: Sprite2D = $Sprite2D
+
+# Use in _process
+func _process(delta: float):
+	sprite.position += Vector2(1, 0)
+
+# NOT this (searches every frame)
+func _process(delta: float):
+	$Sprite2D.position += Vector2(1, 0)
+```
+
+---
+
+## TROUBLESHOOTING
+
+### Quick Fixes
+| Issue | Solution |
+|-------|----------|
+| "Script does not exist" | Check path, reload project (Project → Reload) |
+| C# compilation fails | Build → Clean → Build, restart Godot |
+| Service not found | Verify registration in Main.gd, check spelling |
+| Type annotation error | Check spelling, use built-in types (int, String, Node) |
+
+### Debug Logging
+```gdscript
+# Use EngineConstants
+EngineConstants.log_info("Message")
+EngineConstants.log_error("Error: %s" % msg)
+
+# Temporary debug (REMOVE before commit)
+print("[DEBUG] Value: ", value)
+```
+
+---
+
+## PRE-COMMIT CHECKLIST
+
+**Run this checklist before EVERY commit**:
+```
+CODE:
+□ Follows naming conventions
+□ All public APIs have type annotations
+□ No debug print() statements
+□ Code tested in Godot editor
+□ No linter errors
+
+DOCUMENTATION:
+□ Architecture docs updated (if structure changed)
+□ Function docs updated (if API changed)
+□ README updated (if user-facing changed)
+□ All path references updated (if files moved)
+
+GIT:
+□ Commit message follows Conventional Commits
+□ Branch name follows format
+□ Changes are atomic and focused
+□ No unrelated changes included
+
+QUALITY:
+□ Line length < 100 chars
+□ Proper indentation (Tab/4 spaces)
+□ No trailing whitespace
+□ File ends with newline
+```
+
+---
+
+## ENFORCEMENT LEVELS
+
+### CRITICAL (Immediate Rejection)
+1. Documentation not updated simultaneously
+2. Missing type annotations on public APIs
+3. Hardcoded paths instead of ServiceLocator
+4. Wrong commit message format
+5. Breaking changes without migration guide
+
+### HIGH (Must Fix Before Merge)
+6. Naming convention violations
+7. Code quality issues (line length, indentation)
+8. Security/privacy violations
+9. Performance issues in hot paths
+
+### MEDIUM (Should Fix)
+10. Missing comments on complex logic
+11. Function too long (>50 lines)
+12. Too many parameters (>5)
+
+---
+
+## CRITICAL FILE PATHS
+
+**Main Entry**: `renderer/core/Main.gd`
+**Service Registration**: `renderer/core/Main.gd::_init_services()`
+**Main Scene**: `renderer/scenes/L2D.tscn`
+**Project Config**: `renderer/project.godot`
+**Architecture Doc**: `docs/docs/architecture/architecture.md`
+**Coding Standards**: `docs/CODING_STANDARDS.md`
+
+---
+
+## CONSTANTS REFERENCE
+
+```gdscript
+# In EngineConstants (renderer/core/Constants.gd)
+MODEL_BASE_PATH = "res://Live2D/models/"
+CONFIG_PATH = "user://engine_config.json"
+ANIMATION_FADE_TIME = 0.3
+AUTO_RESET_DURATION = 5.0
+EYE_SMOOTH_FACTOR = 0.08
+```
+
+---
+
+## FINAL REMINDERS FOR AI
+
+**YOU ARE**: A senior engineer responsible for production-safe changes
+
+**YOU MUST**:
+✅ Update documentation simultaneously with code
+✅ Follow 5-step workflow strictly
+✅ Use ServiceLocator for all dependencies
+✅ Write type annotations on all public APIs
+✅ Test in Godot before committing
+✅ Make minimal, focused changes
+
+**YOU MUST NOT**:
+❌ Skip documentation updates
+❌ Make speculative changes
+❌ Violate naming conventions
+❌ Break existing functionality
+❌ Add unnecessary complexity
+❌ Defer documentation to "later"
+
+**REMEMBER**:
+> "Documentation is first-class code. Update it simultaneously or the change is incomplete."
+
+---
+
+END OF RULES
