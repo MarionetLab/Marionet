@@ -2,7 +2,7 @@
 
 > 智能陪伴向的桌面宠物框架 | AI驱动 | Live2D | 离线可用
 
-![Status](https://img.shields.io/badge/status-prototype-yellow)  ![C#](https://img.shields.io/badge/Language-C%23-blue) ![Godot](https://img.shields.io/badge/Godot-4.5-478CBF?logo=godot-engine&logoColor=white) ![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+![Status](https://img.shields.io/badge/status-prototype-yellow)  ![C#](https://img.shields.io/badge/Language-C%23-blue) ![Godot](https://img.shields.io/badge/Godot-4.5-478CBF?logo=godot-engine&logoColor=white) ![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![CI](https://img.shields.io/badge/CI-GitHub%20Actions-2088FF?logo=github-actions&logoColor=white)
 
 > ⚠️ **项目处于早期原型阶段**，核心功能尚在开发中
 
@@ -103,8 +103,8 @@
 
 |     工具      |  版本  |      用途       |                             下载链接                             |
 | ------------ | ----- | --------------- | --------------------------------------------------------------- |
-| **Godot**    | 4.3+  | 渲染引擎与编辑器 | [godotengine.org](https://godotengine.org/download)             |
-| **GDCubism** | 0.91+ | Live2D渲染依赖   | [MizunagiKB/gd_cubism](https://github.com/MizunagiKB/gd_cubism) |
+| **Godot**    | 4.5+  | 渲染引擎与编辑器 | [godotengine.org](https://godotengine.org/download)             |
+| **GDCubism** | Latest | Live2D渲染依赖   | [MizunagiKB/gd_cubism](https://github.com/MizunagiKB/gd_cubism) |
 | **.NET SDK** | 8.0+  | C# 核心逻辑开发  | [dotnet.microsoft.com](https://dotnet.microsoft.com/download)   |
 | **Git**      | 2.40+ | 版本控制         | [git-scm.com](https://git-scm.com/)                             |
 
@@ -312,6 +312,18 @@ Live2D 驱动的丰富表情与动作，情绪渐变、微表情、口型同步�
 - [编码规范](docs/CODING_STANDARDS.md) - 代码风格指南
 - [快速参考](docs/QUICK_REFERENCE.md) - 编码规范速查表
 - [环境配置](docs/SETUP_GUIDE.md) - 开发环境配置指南
+- **[CI/CD 指南](docs/CI_CD_GUIDE.md)** - 自动化检查说明 ✨
+
+### 🛠️ 快速设置开发环境
+
+```bash
+# Linux / macOS
+chmod +x scripts/setup-dev.sh
+./scripts/setup-dev.sh
+
+# Windows PowerShell
+.\scripts\setup-dev.ps1
+```
 
 ### 🚀 快速开始
 
@@ -328,11 +340,30 @@ git checkout -b feat/your-feature-name
 
 # 4. 开发、测试、提交
 # ... 进行开发 ...
+
+# 5. 本地运行检查（避免 CI 失败）
+pip install gdtoolkit==4.*
+cd engine && gdlint renderer/ core/
+dotnet build MarionetEngine.csproj
+
+# 6. 提交代码
 git commit  # 使用提交模板
 
-# 5. 推送并创建 PR
+# 7. 推送并创建 PR（会自动触发 CI 检查）
 git push origin feat/your-feature-name
 ```
+
+### ✅ CI 自动检查
+
+所有 PR 都会自动运行以下检查：
+- GDScript 语法和代码风格（使用 gdlint）
+- C# 代码编译验证
+- Godot 项目完整性
+- 文件命名规范
+- 文档完整性
+- 安全扫描
+
+详见 [CI/CD 指南](docs/CI_CD_GUIDE.md)
 
 ### 📋 提交规范
 

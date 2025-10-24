@@ -41,8 +41,10 @@ func _process(delta: float):
 	update_target_global(local_mouse_pos, window_size)
 
 	# 检查鼠标是否在窗口内，用于空闲检测
-	var is_in_window = (local_mouse_pos.x >= 0 and local_mouse_pos.x <= window_size.x and
-						 local_mouse_pos.y >= 0 and local_mouse_pos.y <= window_size.y)
+	var is_in_window = (
+		local_mouse_pos.x >= 0 and local_mouse_pos.x <= window_size.x and
+		local_mouse_pos.y >= 0 and local_mouse_pos.y <= window_size.y
+	)
 
 	# 如果鼠标在窗口内，重置空闲计时器
 	if is_in_window:
@@ -139,8 +141,16 @@ func update_target(mouse_pos: Vector2):
 	)
 
 	# 限制范围
-	target_position.x = clamp(normalized_pos.x, -EngineConstants.EYE_MAX_DISTANCE, EngineConstants.EYE_MAX_DISTANCE)
-	target_position.y = clamp(normalized_pos.y, -EngineConstants.EYE_MAX_DISTANCE, EngineConstants.EYE_MAX_DISTANCE)
+	target_position.x = clamp(
+		normalized_pos.x,
+		-EngineConstants.EYE_MAX_DISTANCE,
+		EngineConstants.EYE_MAX_DISTANCE
+	)
+	target_position.y = clamp(
+		normalized_pos.y,
+		-EngineConstants.EYE_MAX_DISTANCE,
+		EngineConstants.EYE_MAX_DISTANCE
+	)
 
 	# 重置空闲计时器
 	idle_timer = 0.0

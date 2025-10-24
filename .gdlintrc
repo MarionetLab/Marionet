@@ -1,0 +1,31 @@
+# GDScript Linter Configuration
+# gdlint 使用 YAML 格式
+
+# 禁用的检查规则
+# 临时禁用代码风格检查，专注于核心功能和 CI/CD 基础设施
+# 这些风格问题不影响代码功能，可以在后续使用自动化工具统一处理
+disable:
+  - trailing-whitespace      # 行尾空格
+  - class-definitions-order  # 定义顺序
+  - no-elif-return          # 不必要的 elif
+  - no-else-return          # 不必要的 else
+  - max-line-length         # 行长度限制
+  - mixed-tabs-and-spaces   # Tab/空格混用
+
+# 以下配置已禁用，仅保留作为参考
+# max-line-length: 100
+
+# 函数复杂度限制（圈复杂度）
+max-function-complexity: 15
+
+# 函数最大参数数量
+max-function-parameters: 5
+
+# 函数最大返回语句数量
+max-returns: 10  # 放宽到 10（默认 6）
+
+# 排除的目录和文件
+exclude:
+  - ".godot/**"
+  - "addons/gd_cubism/**"
+
