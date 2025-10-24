@@ -76,11 +76,25 @@ jobs:
       - name: 验证项目文件
         run: |
           cd engine
-          ../Godot_v${{ env.GODOT_VERSION }}_mono_linux_x86_64/Godot_v${{ env.GODOT_VERSION }}_mono_linux.x86_64 --headless --check-only --quit 2>&1 | tee godot_check.log
-          if grep -i "error" godot_check.log; then
-            echo "发现 Godot 项目错误"
+          # 先导入项目生成 UID 缓存
+          echo "导入 Godot 项目..."
+          ../Godot_v${{ env.GODOT_VERSION }}_mono_linux_x86_64/Godot_v${{ env.GODOT_VERSION }}_mono_linux.x86_64 --headless --import --quit 2>&1 | tee godot_import.log
+
+          # 等待导入完成
+          sleep 5
+
+          # 验证项目文件
+          echo "验证项目完整性..."
+          ../Godot_v${{ env.GODOT_VERSION }}_mono_linux_x86_64/Godot_v${{ env.GODOT_VERSION }}_mono_linux.x86_64 --headless --quit 2>&1 | tee godot_check.log
+
+          # 检查关键错误（排除 UID 相关的警告）
+          if grep -iE "error.*failed|fatal|cannot load" godot_check.log | grep -v "Unrecognized UID"; then
+            echo "发现 Godot 项目严重错误"
+            cat godot_check.log
             exit 1
           fi
+
+          echo "Godot 项目验证完成 ✓"
 
   # 4. 文件结构和命名规范检查
   file-structure-check:

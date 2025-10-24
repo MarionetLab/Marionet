@@ -63,6 +63,8 @@ dotnet build MarionetEngine.csproj --configuration Release
 
 **运行方式**: CI 中自动使用 Godot Headless
 
+**注意**: CI 会先导入项目生成 UID 缓存（`.godot/uid_cache.bin`），然后再进行验证。UID 相关的警告会被忽略，只关注严重错误。
+
 ### 4. 文件结构检查
 
 **检查项**:
@@ -304,6 +306,17 @@ git commit -m "docs: 修复拼写错误 [skip ci]"
 - **未来**: 考虑使用 GitHub Releases 或缓存
 
 参考: `engine/addons/gd_cubism/bin/README.md`
+
+### Q: Godot 项目验证报 "Unrecognized UID" 错误？
+
+**A**:
+这是正常的。UID 缓存文件（`.godot/uid_cache.bin`）被 `.gitignore` 忽略了，CI 环境需要先导入项目生成缓存。CI 配置已经处理了这个问题：
+1. 先用 `--import` 导入项目
+2. 生成 UID 缓存
+3. 再进行验证
+4. 忽略 UID 相关的警告
+
+如果你看到这个错误，不用担心，CI 已经自动处理了。
 
 ---
 
