@@ -103,8 +103,8 @@
 
 |     工具      |  版本  |      用途       |                             下载链接                             |
 | ------------ | ----- | --------------- | --------------------------------------------------------------- |
-| **Godot**    | 4.3+  | 渲染引擎与编辑器 | [godotengine.org](https://godotengine.org/download)             |
-| **GDCubism** | 0.91+ | Live2D渲染依赖   | [MizunagiKB/gd_cubism](https://github.com/MizunagiKB/gd_cubism) |
+| **Godot**    | 4.5+  | 渲染引擎与编辑器 | [godotengine.org](https://godotengine.org/download)             |
+| **GDCubism** | Latest | Live2D渲染依赖   | [MizunagiKB/gd_cubism](https://github.com/MizunagiKB/gd_cubism) |
 | **.NET SDK** | 8.0+  | C# 核心逻辑开发  | [dotnet.microsoft.com](https://dotnet.microsoft.com/download)   |
 | **Git**      | 2.40+ | 版本控制         | [git-scm.com](https://git-scm.com/)                             |
 

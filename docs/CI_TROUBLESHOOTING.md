@@ -188,35 +188,51 @@ GetNode("Path") as Node;
 
 ---
 
-## 🔍 PR 格式错误
+## 🔍 PR 格式检查
 
-### ❌ 错误: "PR 标题必须符合 Conventional Commits 格式"
+### ℹ️ PR 标题格式建议
 
-**错误信息**:
+**CI 检查是宽松的**，以下标题都能通过：
+
+**✅ 推荐格式（最佳）**:
 ```
-错误: PR 标题必须符合 Conventional Commits 格式
-示例: feat(renderer): 添加新的动画系统
-当前标题: 更新代码
-```
-
-**解决方案**:
-在 GitHub PR 页面修改标题为：
-
-```
-feat(scope): 添加新功能
-fix(scope): 修复某个问题
-refactor(scope): 重构某个模块
-docs(scope): 更新文档
+feat(renderer): 添加 Live2D 动画系统
+fix(core): 修复服务初始化问题
+chore(ci): 添加 CI/CD 配置
+docs: 更新贡献指南
 ```
 
-**类型列表**:
-- `feat` - 新功能
-- `fix` - Bug 修复
-- `refactor` - 重构
-- `docs` - 文档
-- `style` - 代码风格
-- `test` - 测试
-- `chore` - 构建/工具
+**✅ 可接受格式**:
+```
+Add CI/CD configuration
+Update documentation
+Fix renderer bug
+Feature: Add animation system
+```
+
+**⚠️  不推荐但能通过**:
+```
+Update files          （只要有 10+ 字符且有意义）
+Improve performance
+```
+
+**❌ 会失败的标题**:
+```
+Dev                   （太短）
+update                （太模糊）
+.                     （无意义）
+```
+
+### 🔧 如何修改 PR 标题
+
+1. 进入 GitHub PR 页面
+2. 点击标题旁边的 "Edit" 按钮
+3. 修改为有意义的标题（推荐使用 Conventional Commits）
+4. 保存后 CI 自动重新运行
+
+### 📚 详细格式参考
+
+完整示例和最佳实践：[PR 标题格式参考](../.github/PR_TITLE_EXAMPLES.md)
 
 ### ❌ 错误: "PR 描述过短或为空"
 

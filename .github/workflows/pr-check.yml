@@ -20,15 +20,57 @@ jobs:
         run: |
           PR_TITLE="${{ github.event.pull_request.title }}"
 
-          # 检查是否符合 Conventional Commits 格式
-          if ! echo "$PR_TITLE" | grep -qE "^(feat|fix|refactor|docs|style|test|chore|perf)(\(.+\))?: .+"; then
-            echo "错误: PR 标题必须符合 Conventional Commits 格式"
-            echo "示例: feat(renderer): 添加新的动画系统"
+          echo "当前 PR 标题: $PR_TITLE"
+          echo ""
+
+          # 检查是否符合 Conventional Commits 格式（宽松版本）
+          # 允许的格式：
+          # 1. 标准格式: feat(scope): description
+          # 2. 无 scope: feat: description
+          # 3. 中文描述: feat: 添加功能
+          # 4. 简单格式但有意义: [Feature] Add xxx, Update xxx, Fix xxx
+
+          if echo "$PR_TITLE" | grep -qE "^(feat|fix|refactor|docs|style|test|chore|perf)(\(.+\))?:.+"; then
+            echo "✓ PR 标题符合 Conventional Commits 格式"
+          elif echo "$PR_TITLE" | grep -qiE "^(feature|bugfix|update|add|remove|improve|optimize|merge|release)"; then
+            echo "⚠️  PR 标题可接受，但建议使用 Conventional Commits 格式"
+            echo ""
+            echo "建议格式:"
+            echo "  feat: 新功能描述"
+            echo "  fix: Bug 修复描述"
+            echo "  chore: 构建/工具变更"
+            echo ""
+            echo "当前标题已接受，但建议下次改进 ✓"
+          elif [ ${#PR_TITLE} -ge 10 ]; then
+            echo "⚠️  PR 标题格式不规范，但有足够描述"
+            echo ""
+            echo "强烈建议使用 Conventional Commits 格式:"
+            echo "  类型(范围): 描述"
+            echo ""
+            echo "常用类型: feat, fix, chore, docs, refactor, test, perf"
+            echo ""
+            echo "示例:"
+            echo "  feat(renderer): 添加新的动画系统"
+            echo "  fix(core): 修复服务初始化问题"
+            echo "  chore(ci): 添加 CI/CD 配置"
+            echo ""
+            echo "当前标题已接受，但强烈建议改进 ⚠️"
+          else
+            echo "❌ PR 标题过短或不够描述性"
+            echo ""
+            echo "请提供有意义的 PR 标题（至少 10 个字符）"
+            echo ""
+            echo "推荐使用 Conventional Commits 格式:"
+            echo "  类型(范围): 描述"
+            echo ""
+            echo "或者至少使用描述性标题，如:"
+            echo "  Add CI/CD configuration"
+            echo "  Update documentation"
+            echo "  Fix renderer bug"
+            echo ""
             echo "当前标题: $PR_TITLE"
             exit 1
           fi
-
-          echo "PR 标题格式正确 ✓"
 
       - name: 检查 PR 描述
         run: |

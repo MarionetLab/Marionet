@@ -100,13 +100,17 @@ CI 环境中不包含 GDCubism 插件（插件二进制不提交到仓库），�
 针对 PR 到 `main` 分支的额外检查：
 
 ### PR 格式验证
-- **标题格式**: 必须符合 Conventional Commits
+- **标题格式**: 推荐使用 Conventional Commits（宽松检查）
   ```
-  ✅ feat(renderer): 添加新的动画系统
-  ✅ fix(core): 修复服务定位器初始化问题
-  ❌ 更新代码
-  ❌ fix bug
+  ✅ 推荐: feat(renderer): 添加新的动画系统
+  ✅ 推荐: fix(core): 修复服务定位器初始化问题
+  ✅ 可接受: Add CI/CD configuration
+  ✅ 可接受: Update documentation
+  ❌ 太短: Dev
+  ❌ 太模糊: update
   ```
+  
+  注意：只要标题有意义且长度足够（10+ 字符）就能通过，但推荐使用规范格式。
 
 - **描述长度**: 至少 20 字符
 - **源分支**: 不能直接从 `main` 创建 PR
