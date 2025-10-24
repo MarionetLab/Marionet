@@ -1,0 +1,189 @@
+name: PR - 合并前检查
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  # PR 信息验证
+  pr-validation:
+    name: PR 信息验证
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 检查 PR 标题格式
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+
+          # 检查是否符合 Conventional Commits 格式
+          if ! echo "$PR_TITLE" | grep -qE "^(feat|fix|refactor|docs|style|test|chore|perf)(\(.+\))?: .+"; then
+            echo "错误: PR 标题必须符合 Conventional Commits 格式"
+            echo "示例: feat(renderer): 添加新的动画系统"
+            echo "当前标题: $PR_TITLE"
+            exit 1
+          fi
+
+          echo "PR 标题格式正确 ✓"
+
+      - name: 检查 PR 描述
+        run: |
+          PR_BODY="${{ github.event.pull_request.body }}"
+
+          if [ -z "$PR_BODY" ] || [ ${#PR_BODY} -lt 20 ]; then
+            echo "错误: PR 描述过短或为空"
+            echo "请添加详细的 PR 描述，包括:"
+            echo "- 变更类型"
+            echo "- 变更说明"
+            echo "- 测试情况"
+            exit 1
+          fi
+
+          echo "PR 描述充足 ✓"
+
+      - name: 检查源分支
+        run: |
+          SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
+
+          if [ "$SOURCE_BRANCH" = "main" ]; then
+            echo "错误: 不能直接从 main 分支创建 PR"
+            echo "请从 dev 或功能分支创建 PR"
+            exit 1
+          fi
+
+          echo "源分支正确: $SOURCE_BRANCH ✓"
+
+  # 检查变更范围
+  change-analysis:
+    name: 变更分析
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 分析变更文件
+        run: |
+          echo "分析 PR 变更..."
+
+          # 获取变更的文件列表
+          git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD > changed_files.txt
+
+          echo "变更的文件:"
+          cat changed_files.txt
+
+          # 统计变更类型
+          GDSCRIPT_CHANGES=$(grep -c "\.gd$" changed_files.txt || true)
+          CSHARP_CHANGES=$(grep -c "\.cs$" changed_files.txt || true)
+          DOC_CHANGES=$(grep -c "\.md$" changed_files.txt || true)
+          SCENE_CHANGES=$(grep -c "\.tscn$" changed_files.txt || true)
+
+          echo "GDScript 文件变更: $GDSCRIPT_CHANGES"
+          echo "C# 文件变更: $CSHARP_CHANGES"
+          echo "文档变更: $DOC_CHANGES"
+          echo "场景文件变更: $SCENE_CHANGES"
+
+      - name: 检查是否需要文档更新
+        run: |
+          git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD > changed_files.txt
+
+          # 如果有代码变更但没有文档更新，给出警告
+          CODE_CHANGES=$(grep -E "\.(gd|cs)$" changed_files.txt | wc -l)
+          DOC_CHANGES=$(grep -E "\.md$" changed_files.txt | wc -l)
+
+          if [ $CODE_CHANGES -gt 10 ] && [ $DOC_CHANGES -eq 0 ]; then
+            echo "⚠️  警告: 检测到较大的代码变更，但没有文档更新"
+            echo "建议检查是否需要更新以下文档:"
+            echo "- docs/architecture/architecture.md (架构变更)"
+            echo "- docs/CODING_STANDARDS.md (新的编码规范)"
+            echo "- README.md (用户可见功能)"
+            # 不阻止 PR，只是警告
+          fi
+
+  # 代码质量门禁
+  quality-gate:
+    name: 代码质量门禁
+    runs-on: ubuntu-latest
+    needs: [pr-validation]
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装检查工具
+        run: |
+          pip install gdtoolkit==4.*
+
+      - name: GDScript 质量检查
+        run: |
+          cd engine
+          gdlint renderer/ core/ || {
+            echo "GDScript 代码质量检查未通过"
+            echo "请运行 'gdlint' 修复代码风格问题"
+            exit 1
+          }
+
+  # 检查破坏性变更
+  breaking-changes:
+    name: 破坏性变更检查
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 检查 API 变更
+        run: |
+          echo "检查是否有破坏性的 API 变更..."
+
+          # 检查公共函数签名的变更
+          git diff origin/${{ github.event.pull_request.base.ref }}...HEAD -- "engine/**/*.gd" | \
+            grep -E "^[-+]func [a-z_]+.*\)( ->)?" | \
+            grep "^-func" > removed_functions.txt || true
+
+          if [ -s removed_functions.txt ]; then
+            echo "⚠️  警告: 检测到可能的破坏性变更（函数删除/修改）"
+            echo "删除或修改的函数:"
+            cat removed_functions.txt
+            echo ""
+            echo "如果这是破坏性变更，请确保:"
+            echo "1. 更新了版本号"
+            echo "2. 在 CHANGELOG 中记录"
+            echo "3. 提供了迁移指南"
+          fi
+
+  # 最终批准检查
+  ready-to-merge:
+    name: 合并就绪检查
+    runs-on: ubuntu-latest
+    needs: [pr-validation, change-analysis, quality-gate, breaking-changes]
+    if: always()
+    steps:
+      - name: 汇总检查结果
+        run: |
+          echo "PR 合并前检查完成"
+          echo ""
+          echo "PR 验证: ${{ needs.pr-validation.result }}"
+          echo "变更分析: ${{ needs.change-analysis.result }}"
+          echo "质量门禁: ${{ needs.quality-gate.result }}"
+          echo "破坏性变更检查: ${{ needs.breaking-changes.result }}"
+          echo ""
+
+          if [ "${{ needs.pr-validation.result }}" != "success" ] || \
+             [ "${{ needs.quality-gate.result }}" != "success" ]; then
+            echo "❌ PR 未通过检查，无法合并"
+            exit 1
+          fi
+
+          echo "✅ PR 已通过所有检查，可以合并"
+

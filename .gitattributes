@@ -1,0 +1,47 @@
+# Git 属性配置
+# 确保跨平台一致性
+
+# 自动检测文本文件并规范化行尾
+* text=auto
+
+# 明确指定文本文件使用 LF
+*.gd text eol=lf
+*.cs text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.txt text eol=lf
+*.xml text eol=lf
+
+# Godot 文件
+*.tscn text eol=lf
+*.tres text eol=lf
+*.godot text eol=lf
+*.cfg text eol=lf
+
+# 二进制文件
+*.dll binary
+*.so binary
+*.dylib binary
+*.exe binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.wav binary
+*.mp3 binary
+*.ogg binary
+
+# Godot 导入文件
+*.import binary
+
+# Live2D 文件
+*.moc3 binary
+*.model3.json text eol=lf
+*.cdi3.json text eol=lf
+*.exp3.json text eol=lf
+*.pose3.json text eol=lf
+*.physics3.json text eol=lf
+*.userdata3.json text eol=lf
+
