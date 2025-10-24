@@ -52,18 +52,25 @@ cd engine
 dotnet build MarionetEngine.csproj --configuration Release
 ```
 
-### 3. Godot 项目验证
+### 3. Godot 项目结构检查
 
-**工具**: Godot Headless 模式
+**工具**: Bash 脚本 + 文件检查
 
 **检查项**:
-- 项目文件完整性
-- 场景文件有效性
-- 资源引用正确性
+- 必需项目文件是否存在（`project.godot`, `Main.gd` 等）
+- `project.godot` 格式正确性
+- 场景文件基本格式验证
 
-**运行方式**: CI 中自动使用 Godot Headless
+**为什么不运行完整的 Godot 验证？**
 
-**注意**: CI 会先导入项目生成 UID 缓存（`.godot/uid_cache.bin`），然后再进行验证。UID 相关的警告会被忽略，只关注严重错误。
+CI 环境中不包含 GDCubism 插件（插件二进制不提交到仓库），这会导致：
+- 依赖插件的脚本无法编译（预期的）
+- Live2D 相关的节点无法实例化（预期的）
+- 大量"错误"实际上是正常的
+
+因此 CI 只做**静态结构检查**，不运行 Godot。
+
+**完整测试**: 在本地开发环境中进行，开发者手动下载插件后测试。
 
 ### 4. 文件结构检查
 
@@ -307,16 +314,25 @@ git commit -m "docs: 修复拼写错误 [skip ci]"
 
 参考: `engine/addons/gd_cubism/bin/README.md`
 
-### Q: Godot 项目验证报 "Unrecognized UID" 错误？
+### Q: CI 中为什么不运行完整的 Godot 项目验证？
 
 **A**:
-这是正常的。UID 缓存文件（`.godot/uid_cache.bin`）被 `.gitignore` 忽略了，CI 环境需要先导入项目生成缓存。CI 配置已经处理了这个问题：
-1. 先用 `--import` 导入项目
-2. 生成 UID 缓存
-3. 再进行验证
-4. 忽略 UID 相关的警告
+因为 CI 环境不包含 GDCubism 插件（插件二进制文件不会提交到仓库）。
 
-如果你看到这个错误，不用担心，CI 已经自动处理了。
+**会出现的"错误"（实际上正常）**:
+- `GDExtension dynamic library not found` - 插件缺失
+- `Could not find type "GDCubismUserModel"` - 插件类型缺失
+- `Failed to compile depended scripts` - 依赖插件的脚本无法编译
+- `WindowService.cs does not inherit from 'Node'` - C# 未编译
+
+这些都是**预期的行为**，不影响代码质量。
+
+**CI 的检查策略**:
+1. ✅ 静态代码检查（GDScript 语法、C# 编译）
+2. ✅ 项目结构验证（文件存在性、格式）
+3. ❌ 不运行完整 Godot（需要插件）
+
+**完整测试**: 在本地开发环境进行（手动下载插件后）。
 
 ---
 

@@ -4,35 +4,77 @@
 
 ---
 
-## 🔍 Godot 项目验证错误
+## 🔍 Godot 项目相关"错误"（实际上正常）
 
-### ❌ 错误: "Unrecognized UID"
+### ℹ️ "GDExtension dynamic library not found"
 
 **完整错误信息**:
 ```
-ERROR: Unrecognized UID: "uid://dr6ijw6u2hjcu".
-   at: get_id_path (core/io/resource_uid.cpp:199)
-Couldn't detect whether to run the editor, the project manager or a specific project. Aborting.
+ERROR: GDExtension dynamic library not found: 'res://addons/gd_cubism/gd_cubism.gdextension'.
+ERROR: Could not find type "GDCubismUserModel" in the current scope.
+ERROR: Failed to compile depended scripts.
+```
+
+**这不是真正的错误！**
+
+**原因**:
+- CI 环境不包含 GDCubism 插件（插件二进制不提交到仓库）
+- 依赖插件的代码自然无法编译
+- 这是**预期的、正常的行为**
+
+**为什么这样设计？**
+1. 插件二进制文件很大，不适合 Git 跟踪
+2. 插件可能有许可证限制
+3. 不同平台需要不同的二进制文件
+
+**CI 的检查策略**:
+- ✅ 检查 GDScript 语法和代码风格（不依赖插件）
+- ✅ 检查 C# 代码编译（不依赖插件）
+- ✅ 检查项目文件结构
+- ❌ **不运行完整的 Godot 验证**（需要插件）
+
+**如果你看到这些错误**:
+- ✅ 不用担心，这是正常的
+- ✅ 检查其他 CI 检查是否通过
+- ✅ 在本地开发环境（有插件）测试完整功能
+
+**本地开发环境**:
+- 手动下载 GDCubism 插件到 `engine/addons/gd_cubism/bin/`
+- 参考: `engine/addons/gd_cubism/bin/README.md`
+- 在本地 Godot 编辑器中运行完整测试
+
+---
+
+### ℹ️ "Failed to instantiate an autoload"
+
+**错误信息**:
+```
+ERROR: Failed to instantiate an autoload, script 'res://renderer/services/Window/WindowService.cs' does not inherit from 'Node'.
 ```
 
 **原因**:
-- Godot 的 UID 缓存文件（`.godot/uid_cache.bin`）被 `.gitignore` 忽略
-- CI 环境是全新的，没有这个缓存文件
-- Godot 需要先导入项目才能生成 UID 映射
+- C# 代码在 CI 环境中可能没有被编译
+- Godot 无法加载未编译的 C# 脚本
 
-**解决方案**:
-✅ **已在 CI 配置中自动处理**
+**这也是正常的**:
+- CI 会单独运行 C# 编译检查（`dotnet build`）
+- 如果 C# 编译检查通过，代码就是正确的
+- Godot autoload 的错误可以忽略（CI 环境限制）
 
-CI 现在会：
-1. 先用 `--import` 导入项目生成 UID 缓存
-2. 等待导入完成
-3. 再运行验证
-4. 忽略 UID 相关的警告，只关注严重错误
+---
 
-**如果你看到这个错误**:
-- 不用担心，这是预期的行为
-- 检查 CI 日志，确保后续的"验证项目完整性"步骤通过
-- 如果验证步骤也失败，才需要检查其他问题
+### ✅ CI 中真正重要的检查
+
+CI 专注于**不需要插件**就能验证的内容：
+
+1. **GDScript 代码风格** - 使用 `gdlint`
+2. **C# 代码编译** - 使用 `dotnet build`
+3. **项目文件结构** - 检查必需文件存在
+4. **文件命名规范** - PascalCase 等
+5. **文档完整性** - 必需文档存在
+6. **安全扫描** - 敏感信息检测
+
+**完整的运行时测试**: 在本地开发环境进行
 
 ---
 
