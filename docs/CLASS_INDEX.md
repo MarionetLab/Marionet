@@ -1,6 +1,6 @@
 # 类名索引 (Class Index)
 
-**最后更新**: 2025-10-22  
+**最后更新**: 2025-10-23  
 **用途**: 记录项目中所有已定义的类名，避免命名冲突  
 **维护**: 添加新类时必须更新此文档
 
@@ -126,6 +126,35 @@ var animation_service = ServiceLocator.get_service("AnimationService")
 
 ---
 
+## 调试工具类 (独立模块，不通过 ServiceLocator)
+
+以下类用于开发和调试，不使用 `class_name` 定义，通常作为场景节点直接使用。
+
+| 工具名称 | 文件路径 | 继承自 | 说明 |
+|---------|---------|--------|------|
+| HitAreaVisualizerInner | engine/renderer/services/Debug/HitAreaVisualizerInner.gd | Node2D | Live2D HitArea 可视化工具 |
+
+**总计**: 1 个调试工具类
+
+**使用方式**:
+```gdscript
+# 在场景中添加为 Node2D 节点
+# 路径: SubViewport/HitAreaVisualizerInner
+var visualizer = get_node("Sprite2D/SubViewport/HitAreaVisualizerInner")
+visualizer.toggle_debug_mode()  # F2 切换显示
+```
+
+**功能特性**:
+- ✅ 可视化 Live2D 模型的 HitArea（红色边框）
+- ✅ 支持过滤显示（仅 HitArea 或额外显示身体部位）
+- ✅ 直接从 GDCubism mesh 顶点提取包围盒
+- ✅ 低耦合设计，不依赖主渲染框架
+- ✅ 零性能影响（默认关闭，按需启用）
+
+**详细文档**: [HitArea Visualizer 使用指南](../engine/docs/HITAREA_VISUALIZER_GUIDE.md)
+
+---
+
 ## 统计总结
 
 ### 按类型统计
@@ -134,8 +163,9 @@ var animation_service = ServiceLocator.get_service("AnimationService")
 | GDScript class_name | 1 | 6 | 0 | 7 |
 | C# public class | 2 | 2 | 8 | 12 |
 | GDScript 服务（无class_name） | 4 | 0 | 0 | 4 |
+| GDScript 调试工具 | 1 | 0 | 0 | 1 |
 | 自动加载单例 | 4 | 0 | 0 | 4 |
-| **总计** | **11** | **8** | **8** | **27** |
+| **总计** | **12** | **8** | **8** | **28** |
 
 ### 按模块统计
 | 模块 | 类数量 |
@@ -144,6 +174,7 @@ var animation_service = ServiceLocator.get_service("AnimationService")
 | 窗口服务 (Window) | 2 个 |
 | Live2D服务 | 3 个 |
 | 配置服务 (Config) | 2 个 |
+| 调试工具 (Debug) | 1 个 |
 | 插件 (gd_cubism) | 8 个 |
 | Legacy | 8 个 |
 
@@ -381,6 +412,19 @@ MouseDetection
 
 ---
 
-**文档版本**: v1.1  
+## 更新历史
+
+### v1.2 (2025-10-23)
+- ✅ 添加调试工具类类别
+- ✅ 新增 `HitAreaVisualizerInner` 调试工具
+- ✅ 更新统计数据（总计 28 个类）
+
+### v1.1 (2025-10-22)
+- ✅ 初始版本
+- ✅ 记录所有活跃类和 Legacy 类
+
+---
+
+**文档版本**: v1.2  
 **维护者**: Marionet 开发团队  
-**最后更新**: 2025-10-22
+**最后更新**: 2025-10-23
