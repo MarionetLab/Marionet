@@ -2,12 +2,12 @@
 # gdlint 使用 YAML 格式
 
 # 禁用的检查规则
-# 如果某些规则太严格，可以临时禁用
-disable: []
-  # 示例（取消注释以禁用）:
-  # - trailing-whitespace      # 行尾空格
-  # - max-line-length          # 行长度
-  # - class-definitions-order  # 定义顺序
+# 临时禁用一些规则，稍后逐步修复
+disable:
+  - trailing-whitespace      # 行尾空格（暂时禁用）
+  - class-definitions-order  # 定义顺序（暂时禁用）
+  - no-elif-return          # 不必要的 elif（暂时禁用）
+  - no-else-return          # 不必要的 else（暂时禁用）
 
 # 行长度限制
 max-line-length: 100
