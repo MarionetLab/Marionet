@@ -1,0 +1,9 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 项目文档
+    url: https://github.com/MarionetLab/Marionet/tree/main/docs
+    about: 查看完整的项目文档
+  - name: 讨论区
+    url: https://github.com/orgs/MarionetLab/discussions
+    about: 功能讨论、使用交流
+
