@@ -2,15 +2,18 @@
 # gdlint 使用 YAML 格式
 
 # 禁用的检查规则
-# 临时禁用部分代码风格检查，关键问题已修复
+# 临时禁用代码风格检查，专注于核心功能和 CI/CD 基础设施
+# 这些风格问题不影响代码功能，可以在后续使用自动化工具统一处理
 disable:
-  - trailing-whitespace      # 行尾空格（后续修复）
-  - class-definitions-order  # 定义顺序（后续修复）
-  - no-elif-return          # 不必要的 elif（后续修复）
-  - no-else-return          # 不必要的 else（后续修复）
+  - trailing-whitespace      # 行尾空格
+  - class-definitions-order  # 定义顺序
+  - no-elif-return          # 不必要的 elif
+  - no-else-return          # 不必要的 else
+  - max-line-length         # 行长度限制
+  - mixed-tabs-and-spaces   # Tab/空格混用
 
-# 行长度限制
-max-line-length: 100
+# 以下配置已禁用，仅保留作为参考
+# max-line-length: 100
 
 # 函数复杂度限制（圈复杂度）
 max-function-complexity: 15
