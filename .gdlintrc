@@ -1,53 +1,38 @@
-# GDScript Linter Configuration
+# GDScript Linter Configuration (YAML format)
 # 用于 gdlint 工具的配置文件
 
-# 禁用的检查
-disable =
-    # 允许在某些情况下有更长的行
-    # max-line-length,
-
-    # 允许函数复杂度稍高一些
-    # function-complexity,
+# 禁用的检查规则
+disable:
+  # 如需禁用某些规则，取消注释以下行
+  # - max-line-length
+  # - function-complexity
 
 # 行长度限制
-max-line-length = 100
+max-line-length: 100
 
 # 函数复杂度限制
-max-function-complexity = 15
+max-function-complexity: 15
 
 # 最大参数数量
-max-function-parameters = 5
+max-function-parameters: 5
 
-# 缩进（Tab）
-indent-size = 1
-use-tabs = true
+# 缩进设置
+indent-size: 4  # Godot 使用 Tab，但 gdlint 以 4 空格等效计算
+use-tabs: false  # gdlint 检查时转换为空格计算
 
-# 类名检查
-class-name-style = PascalCase
+# 命名风格检查
+class-name-style: PascalCase
+function-name-style: snake_case
+variable-name-style: snake_case
+constant-name-style: SCREAMING_SNAKE_CASE
+signal-name-style: snake_case
+enum-name-style: SCREAMING_SNAKE_CASE
 
-# 函数名检查
-function-name-style = snake_case
-
-# 变量名检查
-variable-name-style = snake_case
-
-# 常量名检查
-constant-name-style = SCREAMING_SNAKE_CASE
-
-# 信号名检查
-signal-name-style = snake_case
-
-# 枚举值名检查
-enum-name-style = SCREAMING_SNAKE_CASE
-
-# 文件名检查
-file-name-style = PascalCase
-
-# 排除的文件和目录
-exclude =
-    .godot/,
-    addons/gd_cubism/,
-    build/,
-    .git/,
-    *.import
+# 排除的目录（使用 glob 模式）
+exclude:
+  - ".godot/**"
+  - "addons/gd_cubism/**"
+  - "build/**"
+  - ".git/**"
+  - "**/*.import"
 
