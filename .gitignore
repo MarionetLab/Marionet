@@ -127,6 +127,9 @@ $RECYCLE.BIN/
 .cursor/
 .cursorrules
 
+# vx 编辑器配置
+**/vx.json
+
 # Git LFS
 # (如果使用 LFS，取消下面的注释)
 # .gitattributes 文件保留
@@ -147,7 +150,9 @@ coverage/
 
 # 调试文件
 *.stackdump
-core
+# core dump 文件（只忽略根目录的，不影响 engine/core/ 目录）
+/core
+*.core
 
 # ========== 其他 ==========
 # 备份文件

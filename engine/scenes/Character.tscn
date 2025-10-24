@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dr6ijw6u2hjcu"]
+[gd_scene load_steps=6 format=3 uid="uid://dr6ijw6u2hjcu"]
 
-[ext_resource type="Script" path="res://core/Main.gd" id="1_l2nff"]
-[ext_resource type="Script" path="res://renderer/scripts/SubViewport.gd" id="2_ukhcq"]
-[ext_resource type="Script" path="res://renderer/scripts/Live2DModel.gd" id="3_agypr"]
+[ext_resource type="Script" uid="uid://dr21lxhp7o11g" path="res://core/Main.gd" id="1_l2nff"]
+[ext_resource type="Script" uid="uid://qconawu5ovmb" path="res://renderer/scripts/SubViewport.gd" id="2_ukhcq"]
+[ext_resource type="Script" uid="uid://ddu8yonglifvj" path="res://renderer/scripts/Live2DModel.gd" id="3_agypr"]
+[ext_resource type="Script" uid="uid://10fo5nb7032j" path="res://renderer/services/Debug/HitAreaVisualizerInner.gd" id="5_inner"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_tvgpa"]
 viewport_path = NodePath("Sprite2D/SubViewport")
@@ -19,13 +20,12 @@ texture = SubResource("ViewportTexture_tvgpa")
 transparent_bg = true
 use_debanding = true
 mesh_lod_threshold = 0.6
-use_hdr_2d = false
 size = Vector2i(2048, 2048)
 script = ExtResource("2_ukhcq")
 
 [node name="Camera2D" type="Camera2D" parent="Sprite2D/SubViewport"]
 offset = Vector2(1024, 1024)
-zoom = Vector2(0.44, 0.44)
+zoom = Vector2(0.2, 0.2)
 
 [node name="GDCubismUserModel" type="GDCubismUserModel" parent="Sprite2D/SubViewport"]
 assets = "res://Live2D/models/hiyori_pro_zh/runtime/hiyori_pro_t11.model3.json"
@@ -33,9 +33,9 @@ anim_loop = false
 anim_loop_fade_in = true
 anim_expression = ""
 anim_motion = ""
-ParamAngleX = -1.6046598
-ParamAngleY = 3.7445173
-ParamAngleZ = 4.79334
+ParamAngleX = 5.46817
+ParamAngleY = -3.6609182
+ParamAngleZ = 1.9331295
 ParamCheek = 0.0
 ParamEyeLOpen = 1.0
 ParamEyeLSmile = 0.0
@@ -53,10 +53,10 @@ ParamBrowLForm = 0.0
 ParamBrowRForm = 0.0
 ParamMouthForm = 1.0
 ParamMouthOpenY = 0.0
-ParamBodyAngleX = 0.9748311
+ParamBodyAngleX = 1.6585742
 ParamBodyAngleY = 0.0
 ParamBodyAngleZ = 0.0
-ParamBreath = 0.37497622
+ParamBreath = 3.2439828e-05
 ParamShoulder = 0.0
 ParamLeg = 1.0
 ParamArmLA = 0.0
@@ -69,40 +69,40 @@ ParamHandL = 0.0
 ParamHandR = 0.0
 ParamBustY = 0.0
 ParamHairAhoge = 0.0
-ParamHairFront = 0.02370559
-ParamHairBack = 0.070225425
-ParamSideupRibbon = -0.042551633
-ParamRibbon = -0.02977864
-ParamSkirt = -0.030458324
+ParamHairFront = 0.018180303
+ParamHairBack = 0.018387219
+ParamSideupRibbon = 0.0112034
+ParamRibbon = -0.021356888
+ParamSkirt = -0.021844348
 ParamSkirt2 = 0.0
-Param_Angle_Rotation_1_ArtMesh62 = -0.25808096
-Param_Angle_Rotation_2_ArtMesh62 = 0.17597914
-Param_Angle_Rotation_3_ArtMesh62 = 0.43884516
-Param_Angle_Rotation_4_ArtMesh62 = 0.50598264
-Param_Angle_Rotation_5_ArtMesh62 = 0.33271194
-Param_Angle_Rotation_6_ArtMesh62 = 0.026968718
-Param_Angle_Rotation_7_ArtMesh62 = -0.17922878
-Param_Angle_Rotation_1_ArtMesh61 = -0.25808096
-Param_Angle_Rotation_2_ArtMesh61 = 0.17597914
-Param_Angle_Rotation_3_ArtMesh61 = 0.43884516
-Param_Angle_Rotation_4_ArtMesh61 = 0.50598264
-Param_Angle_Rotation_5_ArtMesh61 = 0.33271194
-Param_Angle_Rotation_6_ArtMesh61 = 0.026968718
-Param_Angle_Rotation_7_ArtMesh61 = -0.17922878
-Param_Angle_Rotation_1_ArtMesh55 = -0.058463812
-Param_Angle_Rotation_2_ArtMesh55 = 0.02848208
-Param_Angle_Rotation_3_ArtMesh55 = 0.05205393
-Param_Angle_Rotation_4_ArtMesh55 = 0.08028507
-Param_Angle_Rotation_5_ArtMesh55 = 0.053343773
-Param_Angle_Rotation_6_ArtMesh55 = 0.14077425
-Param_Angle_Rotation_7_ArtMesh55 = -0.13163567
-Param_Angle_Rotation_1_ArtMesh54 = -0.058463812
-Param_Angle_Rotation_2_ArtMesh54 = 0.02848208
-Param_Angle_Rotation_3_ArtMesh54 = 0.05205393
-Param_Angle_Rotation_4_ArtMesh54 = 0.08028507
-Param_Angle_Rotation_5_ArtMesh54 = 0.053343773
-Param_Angle_Rotation_6_ArtMesh54 = 0.14077425
-Param_Angle_Rotation_7_ArtMesh54 = -0.13163567
+Param_Angle_Rotation_1_ArtMesh62 = 0.19309998
+Param_Angle_Rotation_2_ArtMesh62 = -0.114774704
+Param_Angle_Rotation_3_ArtMesh62 = -0.20813584
+Param_Angle_Rotation_4_ArtMesh62 = -0.22151828
+Param_Angle_Rotation_5_ArtMesh62 = -0.20370483
+Param_Angle_Rotation_6_ArtMesh62 = -0.15331149
+Param_Angle_Rotation_7_ArtMesh62 = -0.080720186
+Param_Angle_Rotation_1_ArtMesh61 = 0.19309998
+Param_Angle_Rotation_2_ArtMesh61 = -0.114774704
+Param_Angle_Rotation_3_ArtMesh61 = -0.20813584
+Param_Angle_Rotation_4_ArtMesh61 = -0.22151828
+Param_Angle_Rotation_5_ArtMesh61 = -0.20370483
+Param_Angle_Rotation_6_ArtMesh61 = -0.15331149
+Param_Angle_Rotation_7_ArtMesh61 = -0.080720186
+Param_Angle_Rotation_1_ArtMesh55 = 0.06393969
+Param_Angle_Rotation_2_ArtMesh55 = -0.0063472986
+Param_Angle_Rotation_3_ArtMesh55 = -0.025429726
+Param_Angle_Rotation_4_ArtMesh55 = -0.07212162
+Param_Angle_Rotation_5_ArtMesh55 = -0.083482265
+Param_Angle_Rotation_6_ArtMesh55 = -0.09918213
+Param_Angle_Rotation_7_ArtMesh55 = -0.087958574
+Param_Angle_Rotation_1_ArtMesh54 = 0.06393969
+Param_Angle_Rotation_2_ArtMesh54 = -0.0063472986
+Param_Angle_Rotation_3_ArtMesh54 = -0.025429726
+Param_Angle_Rotation_4_ArtMesh54 = -0.07212162
+Param_Angle_Rotation_5_ArtMesh54 = -0.083482265
+Param_Angle_Rotation_6_ArtMesh54 = -0.09918213
+Param_Angle_Rotation_7_ArtMesh54 = -0.087958574
 PartCore = 1.0
 PartCheek = 1.0
 PartBrow = 1.0
@@ -133,25 +133,17 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("3_agypr")
 
 [node name="GDCubismEffectBreath" type="GDCubismEffectBreath" parent="Sprite2D/SubViewport/GDCubismUserModel"]
-breath_parameter_id = "ParamBreath"
 
 [node name="GDCubismEffectEyeBlink" type="GDCubismEffectEyeBlink" parent="Sprite2D/SubViewport/GDCubismUserModel"]
 
 [node name="GDCubismEffectCustom" type="GDCubismEffectCustom" parent="Sprite2D/SubViewport/GDCubismUserModel"]
 
 [node name="GDCubismEffectHitArea" type="GDCubismEffectHitArea" parent="Sprite2D/SubViewport/GDCubismUserModel"]
-hit_area_id = "HitArea"
 
 [node name="GDCubismEffectTargetPoint" type="GDCubismEffectTargetPoint" parent="Sprite2D/SubViewport/GDCubismUserModel"]
-smooth_factor = 0.1
-max_distance = 0.8
-head_angle_x = "ParamAngleX"
-head_angle_y = "ParamAngleY"
-head_angle_z = "ParamAngleZ"
-head_range = 30.0
-body_angle_x = "ParamBodyAngleX"
-body_range = 10.0
-eyes_angle_x = "ParamEyeBallX"
-eyes_angle_y = "ParamEyeBallY"
-eyes_range = 1.0
 unique_name_in_owner = true
+
+[node name="HitAreaVisualizerInner" type="Node2D" parent="Sprite2D/SubViewport"]
+z_index = 100
+script = ExtResource("5_inner")
+model_node_path = NodePath("GDCubismUserModel")
