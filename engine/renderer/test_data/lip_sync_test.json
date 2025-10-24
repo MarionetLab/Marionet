@@ -1,0 +1,125 @@
+{
+	"test_sentences": [
+		{
+			"id": "aeiou_vowels",
+			"text": "啊 诶 依 欧 乌",
+			"description": "中文元音测试 - 应依次显示 A E I O U 口型",
+			"expected_mouth_shapes": ["A", "CLOSED", "E", "CLOSED", "I", "CLOSED", "O", "CLOSED", "U"]
+		},
+		{
+			"id": "english_vowels",
+			"text": "AEIOU aeiou",
+			"description": "英文元音测试 - 应依次显示 A E I O U 口型",
+			"expected_mouth_shapes": ["A", "E", "I", "O", "U", "CLOSED", "A", "E", "I", "O", "U"]
+		},
+		{
+			"id": "chinese_greeting",
+			"text": "你好，我是虚拟角色，很高兴认识你。",
+			"description": "中文日常对话 - 观察口型自然度和流畅度",
+			"notes": "注意标点符号应闭嘴"
+		},
+		{
+			"id": "english_greeting",
+			"text": "Hello, I am a virtual character. Nice to meet you!",
+			"description": "英文日常对话 - 观察元音和辅音映射",
+			"notes": "h->A, e->E, l->E, o->O"
+		},
+		{
+			"id": "mixed_language",
+			"text": "今天天气真好 It's a beautiful day 空気がいいですね",
+			"description": "多语言混合测试 - 中英日混排",
+			"notes": "测试不同语言的口型切换"
+		},
+		{
+			"id": "fast_speech",
+			"text": "快速说话快速说话快速说话快速说话",
+			"description": "快速口型切换测试",
+			"notes": "测试高频率字符输入时的性能和流畅度"
+		},
+		{
+			"id": "consonants_test",
+			"text": "波 破 摸 佛 得 特 呢 勒 哥 科 喝",
+			"description": "中文辅音测试 - 不同声母",
+			"notes": "b/p/m -> U（嘴唇音），d/t/n/l -> I/E，g/k/h -> A"
+		},
+		{
+			"id": "punctuation_pause",
+			"text": "你好。我是角色，很高兴！认识你？真的吗…",
+			"description": "标点符号停顿测试",
+			"notes": "句号、问号、感叹号、省略号应闭嘴"
+		},
+		{
+			"id": "long_sentence",
+			"text": "这是一个非常长的句子，用于测试口型同步系统在处理较长对话时的稳定性和性能表现，同时观察口型变化的连续性和自然度。",
+			"description": "长句测试 - 50+ 字符",
+			"notes": "观察是否有延迟或卡顿"
+		},
+		{
+			"id": "special_characters",
+			"text": "测试123数字，以及@#$特殊符号！还有emoji😊🎮",
+			"description": "特殊字符测试",
+			"notes": "数字应映射到 O，特殊符号和 emoji 应有合理处理"
+		},
+		{
+			"id": "empty_and_spaces",
+			"text": "有    很多    空格",
+			"description": "空格测试",
+			"notes": "空格应闭嘴"
+		},
+		{
+			"id": "japanese_hiragana",
+			"text": "あいうえお かきくけこ",
+			"description": "日文平假名测试",
+			"notes": "あ->A, い->I, う->U, え->E, お->O"
+		},
+		{
+			"id": "japanese_katakana",
+			"text": "アイウエオ カキクケコ",
+			"description": "日文片假名测试",
+			"notes": "ア->A, イ->I, ウ->U, エ->E, オ->O"
+		},
+		{
+			"id": "korean_test",
+			"text": "안녕하세요 저는 가상 캐릭터입니다",
+			"description": "韩文测试",
+			"notes": "韩文字符应按 Unicode 模映射到 AEIOU"
+		},
+		{
+			"id": "silent_pause",
+			"text": "说话。\n\n停顿。\n\n继续。",
+			"description": "换行停顿测试",
+			"notes": "换行符应闭嘴"
+		}
+	],
+	"performance_benchmarks": {
+		"character_mapping_max_time_us": 10,
+		"parameter_update_max_time_us": 100,
+		"memory_overhead_max_kb": 1024,
+		"target_fps": 60
+	},
+	"test_config": {
+		"typewriter_speed": 0.1,
+		"auto_delay_between_tests": 3.0,
+		"show_debug_overlay": true,
+		"show_current_mouth_shape": true,
+		"enable_visual_indicator": true
+	},
+	"expected_accuracy": {
+		"english_vowels": 0.95,
+		"english_consonants": 0.60,
+		"chinese_overall": 0.60,
+		"japanese_overall": 0.70,
+		"korean_overall": 0.65,
+		"punctuation": 1.0
+	},
+	"manual_verification_checklist": [
+		"口型是否随文字变化？",
+		"口型变化是否流畅（无跳变）？",
+		"标点符号是否正确闭嘴？",
+		"快速对话时是否有延迟？",
+		"多语言切换是否自然？",
+		"空格和换行是否正确闭嘴？",
+		"整体效果是否自然（不需要 100% 准确）？"
+	]
+}
+

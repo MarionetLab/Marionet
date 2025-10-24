@@ -1,0 +1,85 @@
+{
+	"test_dialogues": [
+		{
+			"id": "short_normal",
+			"text": "你好！今天天气真不错。",
+			"expected_lines": 1,
+			"description": "基础测试 - 单行短文本"
+		},
+		{
+			"id": "medium_multiline",
+			"text": "这是一个中等长度的测试对话，用于验证自动换行功能是否正常工作。它包含足够的文字来触发换行，但不会超出最大行数限制。应该显示为 2-3 行。",
+			"expected_lines": 3,
+			"description": "自动换行测试 - 中等长度"
+		},
+		{
+			"id": "long_paragraph",
+			"text": "我今天学到了很多有趣的知识！首先，我了解到 Godot 引擎的 CanvasLayer 是一个非常强大的功能，它可以让我们在不创建独立窗口的情况下，实现灵活的 UI 渲染。其次，我发现使用信号系统进行模块间通信比直接调用函数更加解耦，这让代码更容易维护。最后，我意识到性能优化不仅仅是关于代码执行速度，更重要的是选择正确的架构设计。你觉得这些想法怎么样？",
+			"expected_lines": 8,
+			"description": "长段落测试 - 接近最大行数"
+		},
+		{
+			"id": "extreme_long",
+			"text": "让我给你讲一个很长很长的故事。从前有一座山，山上有一座庙，庙里有一个老和尚在给小和尚讲故事。讲的什么故事呢？从前有一座山，山上有一座庙，庙里有一个老和尚在给小和尚讲故事。讲的什么故事呢？从前有一座山，山上有一座庙，庙里有一个老和尚在给小和尚讲故事。讲的什么故事呢？从前有一座山，山上有一座庙，庙里有一个老和尚在给小和尚讲故事。这个故事可以无限循环下去，但为了测试目的，我们就到这里吧。现在让我们谈谈一些更实际的内容。在实际应用中，用户可能会输入非常长的对话，或者 LLM 可能会生成冗长的回复。我们需要确保对话系统能够优雅地处理这些情况，而不会导致界面崩溃或性能问题。一个好的解决方案是实现滚动功能，让用户可以查看完整的对话历史，同时限制同时显示的文本量，以保持良好的性能和可读性。另一个重要的考虑是文本的视觉层次，使用适当的字体大小、行距和颜色可以大大提高长文本的可读性。",
+			"expected_lines": 20,
+			"description": "极限测试 - 超长文本（需要滚动或截断）"
+		},
+		{
+			"id": "rich_text_test",
+			"text": "[color=yellow]重要提示：[/color]这是一个[b]富文本[/b]测试。\n你可以使用[i]斜体[/i]、[u]下划线[/u]和[color=red]彩色文字[/color]。\n甚至可以组合使用：[b][color=cyan]粗体青色[/color][/b]！",
+			"expected_lines": 3,
+			"description": "富文本测试 - BBCode 格式"
+		},
+		{
+			"id": "punctuation_test",
+			"text": "你好！我是测试对话。这里有句号。还有问号？以及感叹号！逗号，分号；也要测试。看看打字机效果的停顿是否符合预期。",
+			"expected_lines": 2,
+			"description": "标点符号测试 - 停顿延迟"
+		},
+		{
+			"id": "mixed_language",
+			"text": "这是一个混合语言测试 (Mixed Language Test)。包含中文、English、数字123和符号@#$%。测试自动换行在不同字符类型下的表现。Does the word wrapping work correctly? 中英文混排会不会出现问题？Let's find out!",
+			"expected_lines": 4,
+			"description": "混合语言测试 - 中英文混排"
+		},
+		{
+			"id": "special_chars",
+			"text": "特殊字符测试：\n换行符测试\n制表符→测试\n表情符号测试 😊🎮🚀\nUnicode 测试：日本語・한글・Español",
+			"expected_lines": 5,
+			"description": "特殊字符测试 - Unicode 和转义字符"
+		},
+		{
+			"id": "single_very_long_word",
+			"text": "这是一个超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级长的单词测试，用来验证长单词的换行处理。ThisIsAlsoAVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongWordWithoutSpaces.",
+			"expected_lines": 3,
+			"description": "长单词测试 - 强制换行"
+		},
+		{
+			"id": "empty_lines",
+			"text": "这是第一行。\n\n\n这是第四行（中间有两个空行）。\n\n结束。",
+			"expected_lines": 6,
+			"description": "空行测试 - 垂直间距"
+		}
+	],
+	"test_config": {
+		"auto_delay_between_tests": 3.0,
+		"skip_on_click": true,
+		"show_debug_info": true,
+		"test_all_positions": [
+			"TOP",
+			"LEFT",
+			"RIGHT",
+			"BOTTOM",
+			"CENTER"
+		]
+	},
+	"performance_benchmarks": {
+		"target_fps": 60,
+		"max_render_time_ms": 16.67,
+		"max_memory_mb": 50,
+		"acceptable_lines": 10,
+		"warning_lines": 15,
+		"critical_lines": 20
+	}
+}
+
