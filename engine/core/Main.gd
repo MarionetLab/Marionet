@@ -86,7 +86,9 @@ func _init_services():
 	mouse_detection_service = get_node_or_null("/root/WindowService/MouseDetectionService")
 	if mouse_detection_service:
 		EngineConstants.log_info("[Main] MouseDetectionService 已找到")
-		EngineConstants.log_info("[Main] MouseDetectionService 类型: %s" % mouse_detection_service.get_class())
+		EngineConstants.log_info(
+			"[Main] MouseDetectionService 类型: %s" % mouse_detection_service.get_class()
+		)
 	else:
 		EngineConstants.log_warning("[Main] MouseDetectionService 未找到")
 
@@ -140,7 +142,9 @@ func _input(event):
 
 	# 鼠标左键点击事件（触发动画）
 	elif event is InputEventMouseButton and event.pressed:
-		if event.button_index == MOUSE_BUTTON_LEFT and mouse_detection_service and mouse_detection_service.has_method("is_position_clickable"):
+		if (event.button_index == MOUSE_BUTTON_LEFT and
+			mouse_detection_service and
+			mouse_detection_service.has_method("is_position_clickable")):
 			# 检测点击位置
 			var is_on_character = mouse_detection_service.is_position_clickable(event.position)
 

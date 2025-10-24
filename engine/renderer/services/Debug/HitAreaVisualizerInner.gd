@@ -112,9 +112,11 @@ func _update_hit_areas():
 
 			if show_body_parts:
 				# 主要身体部位的关键词（根据Live2D模型命名规则）
-				var body_keywords = ["Body", "Chest", "Torso", "Head", "Face",
-									 "ArmL", "ArmR", "LegL", "LegR",
-									 "HandL", "HandR", "FootL", "FootR"]
+				var body_keywords = [
+					"Body", "Chest", "Torso", "Head", "Face",
+					"ArmL", "ArmR", "LegL", "LegR",
+					"HandL", "HandR", "FootL", "FootR"
+				]
 				for keyword in body_keywords:
 					if mesh_name.contains(keyword):
 						is_body_part = true

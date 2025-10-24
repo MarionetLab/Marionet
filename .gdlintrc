@@ -2,12 +2,12 @@
 # gdlint 使用 YAML 格式
 
 # 禁用的检查规则
-# 临时禁用一些规则，稍后逐步修复
+# 临时禁用部分代码风格检查，关键问题已修复
 disable:
-  - trailing-whitespace      # 行尾空格（暂时禁用）
-  - class-definitions-order  # 定义顺序（暂时禁用）
-  - no-elif-return          # 不必要的 elif（暂时禁用）
-  - no-else-return          # 不必要的 else（暂时禁用）
+  - trailing-whitespace      # 行尾空格（后续修复）
+  - class-definitions-order  # 定义顺序（后续修复）
+  - no-elif-return          # 不必要的 elif（后续修复）
+  - no-else-return          # 不必要的 else（后续修复）
 
 # 行长度限制
 max-line-length: 100
