@@ -6,11 +6,7 @@ Write-Host "==========================================" -ForegroundColor Cyan
 Write-Host ""
 
 # 检查 gdformat 是否安装
-try {
-    $null = Get-Command gdformat -ErrorAction Stop
-    Write-Host "✓ gdformat 已安装" -ForegroundColor Green
-    Write-Host ""
-} catch {
+if (-not (Get-Command gdformat -ErrorAction SilentlyContinue)) {
     Write-Host "❌ gdformat 未安装" -ForegroundColor Red
     Write-Host ""
     Write-Host "请先安装 gdtoolkit:"
@@ -19,13 +15,16 @@ try {
     exit 1
 }
 
+Write-Host "✓ gdformat 已安装" -ForegroundColor Green
+Write-Host ""
+
 # 进入 engine 目录
 Push-Location engine
 
-Write-Host "开始格式化 GDScript 文件..." -ForegroundColor Yellow
-Write-Host ""
-
 try {
+    Write-Host "开始格式化 GDScript 文件..." -ForegroundColor Yellow
+    Write-Host ""
+
     # 格式化文件
     Write-Host "1. 格式化 core/ 目录..."
     gdformat core/
@@ -66,7 +65,8 @@ try {
         Write-Host "  cd engine"
         Write-Host "  gdlint renderer/ core/"
     }
-
+} catch {
+    Write-Host "❌ 格式化过程中出错: $_" -ForegroundColor Red
 } finally {
     Pop-Location
 }
