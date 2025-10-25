@@ -49,7 +49,7 @@
 
 ## 项目状态
 
-**当前版本**: Prototype v1.0  
+**当前版本**: v0.0.9-alpha-2025/10/24-stable
 **开发阶段**: Phase 1 完成 → Phase 2 进行中  
 **最后更新**: 2025-10-22
 
@@ -128,11 +128,9 @@
 
 # 注：使用Cursor推荐额外配置本项目的Rules文件
 ```
-#### C++ 编译工具（可选）
+#### C++ 编译工具
 
-> **大多数情况下不需要**：如果你只开发 C# 逻辑，使用预编译好的插件即可，无需 C++ 工具链
-
-由于项目里不包含 Godot 插件（如 GDCubism），如果您需要开发渲染部分，需要先进行 C++ 编译。需要以下编译工具：
+由于项目里不包含 Godot 插件（如 GDCubism），要先进行 C++ 编译插件。需要以下编译工具：
 
 |               工具                |      版本要求      |                    用途                     |                         下载链接                         |
 | -------------------------------- | ----------------- | ------------------------------------------ | ------------------------------------------------------- |
@@ -156,13 +154,94 @@
 
 ### 安装与运行
 
+#### 快速开始（开发者）
+
+**1. 克隆项目**
+
 ```bash
-# 1. 克隆项目
-git clone https://github.com/TLSLime/Marionet
+# 克隆稳定版本（推荐）
+git clone -b main https://github.com/MarionetLab/Marionet.git
+cd Marionet
+
+# 或克隆开发版本（最新功能）
+git clone -b dev https://github.com/MarionetLab/Marionet.git
 cd Marionet
 ```
 
-> 详细开发指南 → [docs/development/development.md](docs/development/development.md)
+**2. 配置 GDCubism 插件**
+
+GDCubism 插件的二进制文件未包含在仓库中，需要手动获取：
+
+详细编译教程[GDCubism.md](docs/development/GDCubism.md)
+
+```bash
+# 方法 ：从官方下载相关文件自动编译
+# 访问 https://github.com/MizunagiKB/gd_cubism
+# 读取文档按照要求构建
+# https://mizunagikb.github.io/gd_cubism/gd_cubism/0.6/en/build.html
+# 然后打开编译好的目录，如*/demo/addons/gd_cubism
+# 把bin文件夹复制到本项目的engine/addons/gd_cubism里
+
+
+```
+
+**3. 下载 Live2D 模型**
+
+示例模型未包含在仓库中，需要从官方下载：
+
+```bash
+# 访问 Live2D 官方示例页面下载"桃濑日和"模型
+# https://www.live2d.com/zh-CHS/learn/sample/
+# 
+# 下载后解压，将模型文件夹（如 hiyori_pro_zh）放到：
+# engine/Live2D/models/
+#
+# 详见 engine/Live2D/models/README.md
+```
+
+**4. 打开项目开始开发**
+
+```bash
+# 使用 Godot 4.5+ 打开项目
+# 打开 engine/project.godot
+#
+# 或在命令行中：
+godot --editor engine/project.godot
+```
+
+项目会自动加载插件和模型，即可开始开发和调试！
+
+#### 目录结构说明
+
+配置完成后，关键目录结构如下：
+
+```
+Marionet/
+├── engine/                          # Godot 引擎层
+│   ├── addons/
+│   │   └── gd_cubism/
+│   │       └── bin/                 # ← 你需要添加的插件二进制文件
+│   ├── Live2D/
+│   │   └── models/
+│   │       └── hiyori_pro_zh/       # ← 你需要添加的模型文件
+│   └── project.godot                # Godot 项目入口
+├── src/                             # C# 核心逻辑
+└── docs/                            # 项目文档
+```
+
+#### 常见问题
+
+**Q: 克隆后 Godot 报错找不到插件？**  
+A: 请确保已按步骤 2 配置 GDCubism 插件的 `bin/` 文件夹。
+
+**Q: Godot 打开后没有显示 Live2D 模型？**  
+A: 请确保已按步骤 3 下载并放置 Live2D 模型文件。
+
+**Q: 我需要配置 .NET 环境吗？**  
+A: 是的，项目使用 C# 开发核心逻辑，需要安装 .NET 8.0 SDK。详见完整开发指南。
+
+> 📖 完整开发指南 → [docs/development/development.md](docs/development/development.md)  
+> 🔧 环境配置详解 → [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md)
 
 ---
 

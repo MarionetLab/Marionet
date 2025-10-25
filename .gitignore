@@ -3,12 +3,14 @@
 # =============================
 
 # ========== Live2D 模型（大文件，不上传）==========
-# 整个 models 目录忽略
-engine/Live2D/models/
-renderer/Live2D/models/
+# 注意：不直接忽略 models/ 文件夹，保留 README.md 和 .gitignore
+# 具体忽略规则由 engine/Live2D/models/.gitignore 控制
 
-# 如果需要保留目录结构，在 models 目录下创建 .gitkeep
-# 但所有模型文件都不上传
+# 忽略所有 Live2D 模型子文件夹（包含具体模型）
+engine/Live2D/models/*/
+renderer/Live2D/models/*/
+
+# 额外保护：忽略所有 Live2D 模型文件（防止误上传）
 **/*.moc3
 **/*.can3
 **/*.cmo3
