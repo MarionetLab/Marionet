@@ -187,6 +187,7 @@ venv/
 .prototype/
 legacy/backup/
 legacy/old/
+legacy/
 
 # 个人笔记（不上传）
 PERSONAL_NOTES.md
